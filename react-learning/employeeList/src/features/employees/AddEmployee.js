@@ -1,6 +1,7 @@
 import React from 'react'
 import {useDispatch} from 'react-redux'
 import {saveNewEmployee} from "./employeesSlice";
+import {sagaActions} from "./employeesSaga";
 
 const AddEmployee = () => {
     const dispatch = useDispatch()
@@ -25,7 +26,7 @@ const AddEmployee = () => {
                 <input type="text" name="inputFirstName" placeholder="First Name" ref={node => inputFirstName = node} />
                 <input type="text" name="inputLastName" placeholder="Last Name" ref={node => inputLastName = node} />
                 <input type="text" name="inputAge" placeholder="Age" ref={node => inputAge = node} />
-                <button type="submit">
+                <button type="submit" onClick={() => dispatch({ type: sagaActions.PUT_EMPLOYEE_DATA_SAGA, payload: inputFirstName.value.trim()+','+inputLastName.value.trim()+','+inputAge.value.trim()})}>
                     Add Employee
                 </button>
             </form>

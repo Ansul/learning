@@ -27,6 +27,19 @@ new Server({
     this.timing = 2000
 
     this.resource('employees')
+
+    const server = this
+
+    this.post('/employees', function (schema, req) {
+      const data = this.normalizedRequestAttrs()
+
+      if (data.text === 'error') {
+        throw new Error('Could not save the employee!')
+      }
+
+      const result = server.create('employee', data)
+      return result
+    })
   },
   models: {
     employee: Model.extend({}),
